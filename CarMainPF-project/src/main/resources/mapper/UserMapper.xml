@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.carmainpfproject.mapper.UserMapper">
+    <insert id="insertUserMapper">
+        insert into user(username, password, phone, address, create_time, update_time)
+                    value (#{userName},#{psssword},#{phone},#{address},#{createTime},#{updateTime})
+    </insert>
+
+    <select id="selectUserByPhoneMapper" resultType="peng.zhi.liu.carmainpfpojo.entity.User">
+        select * from user where phone = #{phone}
+    </select>
+</mapper>
