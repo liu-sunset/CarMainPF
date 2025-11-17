@@ -7,10 +7,8 @@ import peng.zhi.liu.carmainpfcommon.constant.UserConstant;
 import peng.zhi.liu.carmainpfcommon.exception.UserException;
 import peng.zhi.liu.carmainpfpojo.dto.UserRegisterDTO;
 import peng.zhi.liu.carmainpfpojo.entity.User;
-import peng.zhi.liu.carmainpfproject.controller.user.UserController;
 import peng.zhi.liu.carmainpfproject.mapper.UserMapper;
 import peng.zhi.liu.carmainpfproject.service.UserService;
-
 import java.time.LocalDateTime;
 
 @Service

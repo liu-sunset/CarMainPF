@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.carmainpfproject.mapper.FranchiseeMapper">
+    <insert id="addFranMapper">
+        insert into franchisee(store_name, contact_person, phone, address, create_time, update_time,admit_status)
+                    value (#{storeName},#{contactPerson},#{phone},#{address},#{createTime},#{updateTime},#{admitStatus})
+    </insert>
+
+    <select id="selectFranByPhoneMapper" resultType="peng.zhi.liu.carmainpfpojo.entity.Franchisee">
+        select * from franchisee where phone = #{phone}
+    </select>
+</mapper>

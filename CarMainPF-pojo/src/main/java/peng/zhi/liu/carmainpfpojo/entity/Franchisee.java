@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Franchisee {
     private Integer id;
     private String storeName;
-    private String contactName;
+    private String contactPerson;
     private String phone;
     private String address;
     private Integer admitStatus = 0;
