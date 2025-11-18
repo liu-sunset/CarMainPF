@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.carmainpfproject.mapper.PartMapper">
+    <insert id="addPartMapper">
+        insert into part(part_name, price, labor_cost, stock, create_time, update_time, is_on_sale, franchisee_id)
+        values (#{partName}, #{price}, #{laborCost}, #{stock}, #{createTime}, #{updateTime}, #{isOnSale}, #{franchiseeId})
+    </insert>
+
+    <update id="updatePartMapper">
+        update part
+        <set>
+            <if test="partName != null and partName != ''">
+                part_name = #{partName},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="laborCost != null">
+                labor_cost = #{laborCost},
+            </if>
+            <if test="stock != null">
+                stock = #{stock},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isOnSale != null">
+                is_on_sale = #{isOnSale},
+            </if>
+            <if test="franchiseeId != null">
+                franchisee_id = #{franchiseeId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectPartByIdMapper" resultType="peng.zhi.liu.carmainpfpojo.entity.Part">
+        select * from part where id = #{id}
+    </select>
+
+    <select id="selectAllByPageMapper" resultType="peng.zhi.liu.carmainpfpojo.entity.Part">
+        select * from part
+        <where>
+            <if test="partName != null and partName != ''">
+                and part_name like concat('%', #{partName}, '%')
+            </if>
+            <if test="franchiseeId != null">
+                and franchisee_id = #{franchiseeId}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+
+    <delete id="deletePartByIdMapper">
+        delete from part where id = #{id}
+    </delete>
+</mapper>
