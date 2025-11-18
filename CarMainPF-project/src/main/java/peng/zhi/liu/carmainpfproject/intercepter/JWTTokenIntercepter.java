@@ -1,0 +1,44 @@
+package peng.zhi.liu.carmainpfproject.intercepter;
+
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import peng.zhi.liu.carmainpfcommon.constant.UserConstant;
+import peng.zhi.liu.carmainpfcommon.utils.BaseContext;
+import peng.zhi.liu.carmainpfcommon.utils.JWTUtils;
+import peng.zhi.liu.carmainpfpojo.property.*;
+
+
+@Component
+public class JWTTokenIntercepter implements HandlerInterceptor {
+    private static final Logger log = LoggerFactory.getLogger(JWTTokenIntercepter.class);
+    @Autowired
+    private JWTProperty jwtProperty;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (!(handler instanceof HandlerMethod)){
+            return true;
+        }
+
+        String tokenTemp = request.getHeader("authorization");
+        String token = tokenTemp.substring(7);
+        try {
+            log.info("用户token是{}",token);
+            Claims claims = JWTUtils.parseJWT(jwtProperty.getSecretKey(),token);
+            long adminId = Long.valueOf( claims.get(UserConstant.USER_NO_EXIST).toString());
+            BaseContext.setId(adminId);
+            return true;
+        }catch(Exception e)
+        {
+            response.setStatus(401);
+            return false;
+        }
+    }
+}
